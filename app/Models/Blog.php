@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Blog extends Model
+{
+    use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $table = 'blogs';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'slug',
+        'short_description',
+        'description',
+        'default_category',
+        'author',
+        'tags',
+        'image',
+        'status',
+        'locale',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
+        'published_at'
+    ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function category()
+    {
+        return $this->hasOne('App\Models\Category', 'id', 'category');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function locale()
+    {
+        return $this->hasOne('App\Models\Locale', 'id', 'locale');
+    }
+}
