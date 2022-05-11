@@ -9,7 +9,7 @@
                     <h2>Blog Düzenle</h2>
                 </blockquote>
             </figure>
-            <form class="form-control" name="form-data" enctype="multipart/form-data">
+            <form name="form-data" enctype="multipart/form-data">
                 @csrf @method('PUT')
 
                 <div class="row">
@@ -48,14 +48,11 @@
                     </div>
                     <div class="col-12 col-lg-6">
                         <div class="form-floating mb-3">
-                            <select class="form-select" name="locale"
-                                    aria-label="Floating label select example">
-                                <option disabled selected>Seçiniz</option>
+                            <select class="form-select" multiple name="locale" style="height: 100px">
                                 @foreach($locales as $locale)
                                     <option value="{{$locale->id}}" {{$locale->id == $blog->locale ? 'selected' : null}}>{{$locale->name}}</option>
                                 @endforeach
                             </select>
-                            <label for="floatingSelect">Varsayılan Dil</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="date" class="form-control" name="published_at"

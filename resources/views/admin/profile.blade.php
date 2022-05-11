@@ -11,7 +11,7 @@
             </figure>
             <div class="row">
                 <div class="col-12 col-lg-12">
-                    <form class="form-control" name="form-data">
+                    <form name="form-data">
                         @csrf @method('PUT')
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" name="name" placeholder="Adı"

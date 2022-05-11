@@ -5,7 +5,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="dc.language" content="{{ app()->getLocale() }}">
     <meta http-equiv="content-language" content="{{ app()->getLocale() }}">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Blogger admin">
     <meta name="author" content="Ahmet Arşiv">
@@ -13,235 +12,159 @@
     @yield('meta')
 
     <link rel="icon" href="{{asset('images/favicon.png')}}" type="image/x-icon"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/ui.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @yield('css')
 </head>
-<body style="scroll-behavior: smooth;">
+<body>
 
-<div class="navbar-top">
-    <div class="navbar-top-left">
-        <div class="nav-container">
-            <div class="nav-toggle"></div>
-            <div class="overlay"></div>
-            <div class="nav-top">
-                <div class="pro-info">
-                    <div class="profile-info-icon">
-                        <span>{{ auth()->user()->name[0] }}</span>
-                    </div>
-                    <div class="profile-info-desc">
-                        <div class="name">
-                            {{ auth()->user()->name }}
-                        </div>
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar-->
+    <div class="border-end d-flex d-sm-flex" id="sidebar-wrapper">
+        <div class="sidebar-heading">
+            <div class="list-group list-group-flush sidebar-menu">
 
-                        <div class="role">
-                            Administrator
-                        </div>
-                    </div>
-                    <div style="display: inline-block;">
-                        <span class="close"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="nav-items">
-                <div class="nav-item {{ request()->is('admin/dashboard*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.dashboard') }}" class="nav-tab-name">
-                        <span class="icon-menu icon dashboard-icon"
-                              style="margin-right: 10px; display: inline-block; vertical-align: middle; transform: scale(0.8);"></span>
-                        <span class="menu-label">Panel</span>
+                <a class="sidebar-logo-link d-md-none d-lg-none d-xl-none d-xxl-none" href="{{ route('admin.dashboard') }}">
+                    <img class="sidebar-logo" src="{{asset('images/logo.png')}}" alt="logo">
+                </a>
+
+                <a class="sidebar-menu-list">
+                    <a class="list-group-item list-group-item-action d-md-none d-lg-none d-xl-none d-xxl-none" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="profile-info-icon-sidebar me-1"><span>{{ auth()->user()->name[0] }}</span></div>
+                        <span class="sidebar-menu-text fs-6">{{auth()->user()->name .' '. auth()->user()->surname}}</span>
+                        <i class="bi bi-chevron-down sidebar-toggle-icon me-1"></i>
                     </a>
-                </div>
+                    <ul class="dropdown-menu sidebar-dropdown-open d-md-none d-lg-none d-xl-none d-xxl-none" aria-labelledby="dropdownMenuButton1">
+                        <span class="text-secondary ms-2">Version : v{{ app()->version() }}</span><br>
+                        <span class="text-secondary ms-2 fw-bold">HESAP</span>
+                        <li><a class="dropdown-item" href="{{route('admin.profile.edit')}}">Hesabım</a></li>
+                        <li><a class="dropdown-item" href="{{route('admin.logout')}}">Çıkış Yap</a></li>
+                    </ul>
+
+                    <a class="list-group-item list-group-item-action {{ request()->is('admin/dashboard*') ? 'active' : '' }}"
+                       href="{{route('admin.dashboard')}}">
+                        <i class="bi bi-grid-fill fs-4"></i>
+                        <span class="sidebar-menu-text">Panel</span>
+                    </a>
+
+                    <a class="list-group-item list-group-item-action {{ request()->is('admin/blog*', 'admin/category*') ? 'active' : '' }}" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-pencil-square fs-4"></i>
+                        <span class="sidebar-menu-text">Blog</span>
+                        <i class="bi bi-chevron-down sidebar-toggle-icon me-1"></i>
+                    </a>
+                    <ul class="dropdown-menu sidebar-dropdown-open" aria-labelledby="dropdownMenuButton3">
+                        <span class="text-secondary ms-2 fw-bold">POST</span>
+                        <li><a class="dropdown-item" href="{{route('admin.blog.index')}}">Blog</a></li>
+                        <li><a class="dropdown-item" href="{{route('admin.category.index')}}">Kategoriler</a></li>
+                    </ul>
+
+                    <a class="list-group-item list-group-item-action {{ request()->is('admin/cms*') ? 'active' : '' }}"
+                       href="{{route('admin.cms.index')}}">
+                        <i class="bi bi-cast fs-4"></i>
+                        <span class="sidebar-menu-text">CMS</span>
+                    </a>
+
+                    <a class="list-group-item list-group-item-action {{ request()->is('admin/locale*', 'admin/slider*', 'admin/configuration*') ? 'active' : '' }}" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-gear fs-4"></i>
+                        <span class="sidebar-menu-text">Ayarlar</span>
+                        <i class="bi bi-chevron-down sidebar-toggle-icon me-1"></i>
+                    </a>
+                    <ul class="dropdown-menu sidebar-dropdown-open" aria-labelledby="dropdownMenuButton3">
+                        <span class="text-secondary ms-2 fw-bold">SISTEM</span>
+                        <li><a class="dropdown-item" href="{{route('admin.locale.index')}}">Dil Seçenekleri</a></li>
+                        <li><a class="dropdown-item" href="{{route('admin.slider.index')}}">Slider</a></li>
+                        <li><a class="dropdown-item" href="{{route('admin.configuration.index')}}">Yapılandırma</a></li>
+                    </ul>
+                </a>
+
             </div>
-        </div>
-        <div class="brand-logo">
-            <a href="{{ route('admin.dashboard') }}">
-                <img src="{{asset('images/logo.png')}}">
-            </a>
         </div>
     </div>
+    <div class="sidebar-toggle-button">
+        <a class="btn btn-light" id="sidebarToggle"><i class="bi bi-list fs-4"></i></a>
+    </div>
+    <!-- Page content wrapper-->
+    <div id="page-content-wrapper">
+        <!-- Top navigation-->
+        <nav class="navbar-top navbar navbar-expand-lg navbar-light border-bottom d-none d-md-block">
+            <div class="container-fluid">
 
-    <div class="navbar-top-right">
-        <div class="profile">
-            <span class="avatar"></span>
-            <div class="store">
-                <div>
-                    <a href="#" target="_blank" style="display: inline-block; vertical-align: middle;">
-                        <span class="icon store-icon" title="Visit Shop"></span>
-                    </a>
-                </div>
-            </div>
+                <a class="navbar-logo-link" href="{{ route('admin.dashboard') }}">
+                    <img class="sidebar-logo" src="{{asset('images/logo.png')}}" alt="logo">
+                </a>
 
-            <div class="notifications">
-                <div class="dropdown-toggle">
-                    <i class="icon notification-icon active" style="margin-left: 0px;"></i>
-                </div>
-            </div>
-
-            <div class="profile-info dropdown-open">
-                <div class="dropdown-toggle">
-                    <div style="display: inline-block; vertical-align: middle;">
-                        <div class="profile-info-div">
-                            <div class="profile-info-icon">
-                                <span>{{ auth()->user()->name[0] }}</span>
-                            </div>
-
-
-                            <div class="profile-info-desc">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                        <li class="nav-item me-2">
+                            <a class="nav-link navbar-border">
+                                <i class="bi bi-bell fs-4 ms-2"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link navbar-border" id="navbarDropdown" href="#" role="button"
+                               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <div class="profile-info-icon-nav"><span>{{ auth()->user()->name[0] }}</span></div>
                                 <span class="name">
-                                    {{ auth()->user()->name }}
+                                    {{auth()->user()->name .' '. auth()->user()->surname}}
+                                    <p class="role">{{auth()->user()->role_id == 1 ? 'Administrator' : 'Guest'}}</p>
+                                    <i class="bi bi-chevron-down sidebar-toggle-icon me-1"></i>
                                 </span>
-
-                                <span class="role">
-                                    Administrator
-                                </span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end navbar-dropdown-open" aria-labelledby="navbarDropdown">
+                                <span class="text-secondary ms-2">Version : v{{ app()->version() }}</span><br>
+                                <span class="text-secondary ms-2 fw-bold">HESAP</span>
+                                <a class="dropdown-item" href="{{ route('admin.profile.edit') }}">Hesabım</a>
+                                <a class="dropdown-item" href="{{ route('admin.logout') }}">Çıkış Yap</a>
                             </div>
-                        </div>
-                    </div>
-                    <i class="icon arrow-down-icon active"></i>
-                </div>
-
-                <div class="dropdown-list bottom-right">
-                    <span class="app-version">Version : {{ app()->version() }}</span>
-
-                    <div class="dropdown-container">
-                        <label>Account</label>
-                        <ul>
-                            <li>
-                                <a href="{{ route('admin.profile.edit') }}">My Account</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('admin.logout') }}">Logout</a>
-                            </li>
-                            <li style="display: flex;justify-content: space-between;">
-                                <div style="margin-top:7px">Mode</div>
-                            </li>
-                        </ul>
-                    </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
+        </nav>
+
+        <div class="content-app">
+            @yield('content')
         </div>
-    </div>
-</div>
 
-<div class="navbar-left ">
-    <ul class="menubar">
-        <li class="menu-item {{ request()->is('admin/dashboard*') ? 'active' : '' }}">
-            <a class="menubar-anchor" href="{{ route('admin.dashboard') }}">
-                <span class="icon-menu icon dashboard-icon"></span>
-                <span class="menu-label">Dashboard</span>
-            </a>
-        </li>
+        <nav class="navbar fixed-bottom bottom-navigation-mb justify-content-around d-flex d-md-none d-lg-none d-xl-none d-xxl-none">
+            <ul class="navbar-list mx-auto ">
+                <li class="navbar-item">
+                    <a class="navbar-link" id="sidebarToggleM" >
+                        <i class="bi bi-list navbar-link-icon"></i>
+                    </a>
+                </li>
 
-        <li class="menu-item {{ request()->is('admin/blog*') ? 'active' : '' }}">
-            <a class="menubar-anchor" href="{{ route('admin.blog.index') }}">
-                <span class="icon-menu icon dashboard-icon"></span>
-                <span class="menu-label">Blog</span>
-            </a>
-        </li>
+                <li class="navbar-item">
+                    <a class="navbar-link {{ request()->is('admin/blog*') ? 'active' : '' }}" href="{{ route('admin.blog.index') }}">
+                        <i class="bi bi-pencil-square navbar-link-icon"></i>
+                    </a>
+                </li>
 
-        <li class="menu-item {{ request()->is('admin/category*') ? 'active' : '' }}">
-            <a class="menubar-anchor" href="{{ route('admin.category.index') }}">
-                <span class="icon-menu icon dashboard-icon"></span>
-                <span class="menu-label">Category</span>
-            </a>
-        </li>
+                <li class="navbar-item">
+                    <a class="navbar-link {{ request()->is('admin/dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
+                        <i class="bi bi-grid-fill navbar-link-icon"></i>
+                    </a>
+                </li>
 
-        <li class="menu-item {{ request()->is('admin/cms*') ? 'active' : '' }}">
-            <a class="menubar-anchor" href="{{ route('admin.cms.index') }}">
-                <span class="icon-menu icon dashboard-icon"></span>
-                <span class="menu-label">CMS</span>
-            </a>
-        </li>
+                <li class="navbar-item">
+                    <a class="navbar-link {{ request()->is('admin/cms*') ? 'active' : '' }}" href="{{ route('admin.cms.index') }}">
+                        <i class="bi bi-cast navbar-link-icon"></i>
+                    </a>
+                </li>
 
-        <li class="menu-item {{ request()->is('admin/slider*') ? 'active' : '' }}">
-            <a class="menubar-anchor" href="{{ route('admin.slider.index') }}">
-                <span class="icon-menu icon dashboard-icon"></span>
-                <span class="menu-label">Slider</span>
-            </a>
-        </li>
+                <li class="navbar-item">
+                    <a class="navbar-link {{ request()->is('admin/profile*') ? 'active' : '' }}" href="{{ route('admin.profile.edit') }}">
+                        <span class="navbar-link-icon fw-bold">{{ auth()->user()->name[0] }}</span>
+                    </a>
+                </li>
 
-        <li class="menu-item {{ request()->is('admin/locale*') ? 'active' : '' }}">
-            <a class="menubar-anchor" href="{{ route('admin.locale.index') }}">
-                <span class="icon-menu icon dashboard-icon"></span>
-                <span class="menu-label">Locale</span>
-            </a>
-        </li>
-
-        {{--<li class="menu-item">
-            <a class="menubar-anchor" href="#">
-                <span class="icon-menu icon settings-icon"></span>
-                <span class="menu-label">Settings</span>
-                <span class="icon arrow-icon  arrow-icon-left"></span>
-            </a>
-            <ul class="sub-menubar">
-                <li class="sub-menu-item ">
-                    <a href="#">
-                        <span class="menu-label">Locales</span>
-                    </a>
-                </li>
-                <li class="sub-menu-item ">
-                    <a href="#">
-                        <span class="menu-label">Currencies</span>
-                    </a>
-                </li>
-                <li class="sub-menu-item ">
-                    <a href="#">
-                        <span class="menu-label">Exchange Rates</span>
-                    </a>
-                </li>
-                <li class="sub-menu-item ">
-                    <a href="#">
-                        <span class="menu-label">Inventory Sources</span>
-                    </a>
-                </li>
-                <li class="sub-menu-item ">
-                    <a href="#">
-                        <span class="menu-label">Channels</span>
-                    </a>
-                </li>
-                <li class="sub-menu-item ">
-                    <a href="#">
-                        <span class="menu-label">Users</span>
-                    </a>
-                </li>
-                <li class="sub-menu-item ">
-                    <a href="#">
-                        <span class="menu-label">Sliders</span>
-                    </a>
-                </li>
-                <li class="sub-menu-item ">
-                    <a href="#">
-                        <span class="menu-label">Taxes</span>
-                    </a>
-                </li>
-                <li class="sub-menu-item ">
-                    <a href="#">
-                        <span class="menu-label">Velocity</span>
-                    </a>
-                </li>
+                <div class="navbar-underscore"></div>
             </ul>
-        </li>--}}
-    </ul>
-    <div class="menubar-bottom" id="nav-expand-button">
-        <i class="icon accordian-right-icon"></i>
-    </div>
-</div>
-
-<div class="content-container ">
-    <div class="inner-section">
-        <div class="content-wrapper">
-            <div class="tabs"></div>
-            <div class="content">
-                @yield('content')
-            </div>
-        </div>
+        </nav>
     </div>
 </div>
 
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/vanilla-masker@1.1.1/build/vanilla-masker.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="{{ asset('js/app.js') }}"></script>

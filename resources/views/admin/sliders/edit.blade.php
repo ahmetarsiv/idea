@@ -9,30 +9,24 @@
                     <h2>Slider Düzenle</h2>
                 </blockquote>
             </figure>
-            <form class="form-control" name="form-data" enctype="multipart/form-data">
+            <form name="form-data" enctype="multipart/form-data">
                 @csrf @method('PUT')
 
                 <div class="row">
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12 col-lg-12">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" name="title" value="{{ $slider->title }}">
                             <label for="floatingFirst">Başlık</label>
                         </div>
                         <div class="mb-3">
-                            <textarea id="ckeditor" name="description">{{ $slider->description }}</textarea>
-                            <input type="hidden" name="ck_editor" value="1">
+                            <textarea class="form-control" name="description" placeholder="Açıklama" id="floatingTextarea2">{{ $slider->description }}</textarea>
                         </div>
-                    </div>
-                    <div class="col-12 col-lg-6">
                         <div class="form-floating mb-3">
-                            <select class="form-select" name="locale"
-                                    aria-label="Floating label select example">
-                                <option disabled selected>Seçiniz</option>
+                            <select class="form-select" multiple name="locale" style="height: 150px">
                                 @foreach($locales as $locale)
                                     <option value="{{$locale->id}}" {{$locale->id == $slider->locale ? 'selected' : null}}>{{$locale->name}}</option>
                                 @endforeach
                             </select>
-                            <label for="floatingSelect">Varsayılan Dil</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" name="path" value="{{ $slider->path }}">
@@ -75,8 +69,4 @@
         const backUrl = '{{route('admin.slider.index')}}';
     </script>
     <script src="{{asset('js/post.js')}}"></script>
-    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace('ckeditor');
-    </script>
 @endsection

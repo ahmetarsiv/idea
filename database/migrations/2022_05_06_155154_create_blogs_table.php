@@ -23,12 +23,12 @@ return new class extends Migration
             $table->foreignId('author');
             $table->string('tags');
             $table->string('image');
-            $table->string('locale');
+            $table->string('locale')->nullable();
             $table->boolean('status');
             $table->string('meta_title');
-            $table->string('meta_description');
-            $table->string('meta_keywords');
-            $table->dateTime('published_at');
+            $table->string('meta_description')->nullable();
+            $table->string('meta_keywords')->nullable();
+            $table->dateTime('published_at')->nullable();
             $table->timestamps();
         });
     }

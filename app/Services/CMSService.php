@@ -14,14 +14,15 @@ class CMSService
     public function store($request)
     {
         DB::transaction(function () use ($request) {
-            $locale                   = new CMS();
-            $locale->page_title       = Str::title($request->page_title);
-            $locale->url_key          = $request->url_key;
-            $locale->html_content     = $request->html_content;
-            $locale->meta_title       = $request->meta_title;
-            $locale->meta_description = $request->meta_description;
-            $locale->meta_keywords    = $request->meta_keywords;
-            $locale->save();
+            $cms                   = new CMS();
+            $cms->page_title       = Str::title($request->page_title);
+            $cms->url_key          = $request->url_key;
+            $cms->html_content     = $request->html_content;
+            $cms->locale           = $request->locale;
+            $cms->meta_title       = $request->meta_title;
+            $cms->meta_description = $request->meta_description;
+            $cms->meta_keywords    = $request->meta_keywords;
+            $cms->save();
         });
     }
 
@@ -31,14 +32,15 @@ class CMSService
     public function update($id, $request)
     {
         DB::transaction(function () use ($id, $request) {
-            $locale                   = CMS::find($id);
-            $locale->page_title       = Str::title($request->page_title);
-            $locale->url_key          = $request->url_key;
-            $locale->html_content     = $request->html_content;
-            $locale->meta_title       = $request->meta_title;
-            $locale->meta_description = $request->meta_description;
-            $locale->meta_keywords    = $request->meta_keywords;
-            $locale->save();
+            $cms                   = CMS::find($id);
+            $cms->page_title       = Str::title($request->page_title);
+            $cms->url_key          = $request->url_key;
+            $cms->html_content     = $request->html_content;
+            $cms->locale           = $request->locale;
+            $cms->meta_title       = $request->meta_title;
+            $cms->meta_description = $request->meta_description;
+            $cms->meta_keywords    = $request->meta_keywords;
+            $cms->save();
         });
     }
 

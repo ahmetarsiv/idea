@@ -35,8 +35,8 @@
             </div>
 
             <footer>
-                <p class="text-center mt-5">
-                    <a href="#" class="text-decoration-none" style="color: #909090" target="_blank">Gizlilik Politikası - KVKK</a>
+                <p class="text-center text-secondary mt-5 small">
+                    © Copyright - idea. All rights reserved.
                 </p>
             </footer>
         </div>

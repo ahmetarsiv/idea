@@ -2,128 +2,99 @@
 
 @section('content')
 
-    <form name="form-data" enctype="multipart/form-data">
+    <div class="container-fluid">
+        <section class="content">
+            <figure>
+                <blockquote class="blockquote">
+                    <h2>Blog Ekle</h2>
+                </blockquote>
+            </figure>
+            <form name="form-data" enctype="multipart/form-data">
+                @csrf
 
-        <div class="page-header">
-            <div class="page-title">
-                <h1>
-                    Blog Ekle
-                </h1>
-            </div>
-
-            <div class="page-action">
-                <button type="button" onclick="createAndUpdateButton()" class="btn btn-lg btn-success">
-                    Kaydet
-                </button>
-            </div>
-        </div>
-
-        <div class="page-content">
-            <div class="form-container">
-                <div slot="body">
-
-                    @csrf()
-
-                    <div class="control-group multi-select">
-                        <label for="locale">Locale</label>
-                        <select class="control" id="locale" name="locale" multiple>
-                            @foreach ($locales as $locale)
-                                <option value="{{ $locale->id }}">
-                                    {{ $locale->name }}
-                                </option>
-                            @endforeach
-                        </select>
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="name">
+                            <label for="floatingFirst">Blog Başlığı</label>
+                        </div>
+                        <textarea class="form-control" name="short_description" placeholder="Kısa Açıklama"
+                                  id="floatingTextarea2" style="height: 100px"></textarea>
+                        <div class="mb-3">
+                            <label class="mb-2"></label>
+                            <textarea id="ckeditor" name="description"></textarea>
+                            <input type="hidden" name="ck_editor" value="1">
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" name="default_category"
+                                    aria-label="Floating label select example">
+                                <option disabled selected>Seçiniz</option>
+                                @foreach($categories as $category)
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                @endforeach
+                            </select>
+                            <label for="floatingSelect">Kategori</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" name="author"
+                                    aria-label="Floating label select example">
+                                <option disabled selected>Seçiniz</option>
+                                @foreach($users as $user)
+                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                @endforeach
+                            </select>
+                            <label for="floatingSelect">Yazar</label>
+                        </div>
                     </div>
-
-                    <div class="control-group">
-                        <label for="name" class="required">Blog adı</label>
-                        <input type="text" class="control" name="name">
+                    <div class="col-12 col-lg-6">
+                        <div class="form-floating mb-3">
+                            <select class="form-select" multiple name="locale" style="height: 100px">
+                                @foreach($locales as $locale)
+                                    <option value="{{$locale->id}}">{{$locale->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control" name="published_at"
+                                   placeholder="Yayınlama Tarihi">
+                            <label for="floatingFirst">Yayınlama Tarihi</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="tags">
+                            <label for="floatingFirst">Etiketler</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="meta_title">
+                            <label for="floatingFirst">Meta Başlık</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="slug">
+                            <label for="floatingFirst">URL Anahtarı</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="meta_keywords">
+                            <label for="floatingFirst">Meta Anahtar Kelimeler</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="meta_description">
+                            <label for="floatingFirst">Meta Açıklama</label>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="file" class="form-control" name="image">
+                            <label class="input-group-text" for="inputGroupFile02">Görüntü</label>
+                        </div>
+                        <div class="form-check form-switch fs-3">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" value="0" name="status" checked>
+                        </div>
                     </div>
-
-                    <div class="control-group">
-                        <label for="slug" class="required">Slug</label>
-                        <input type="text" class="control" name="slug">
-                    </div>
-
-                    <div class="control-group date">
-                        <label for="published_at">Published At</label>
-                        <input type="date" name="published_at" class="control" />
-                    </div>
-
-                    <div class="control-group">
-                        <label for="status">Durum</label>
-                        <select class="control" id="status" name="status">
-                            <option value="1">True</option>
-                            <option value="0">False</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div slot="body">
-                    <div class="control-group">
-                        <label for="default_category" class="required">Yazar</label>
-                        <select class="control" id="author" name="author">
-                            <option value>Select an author</option>
-                            @foreach($users as $user)
-                                <option value="{{$user->id}}">{{$user->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="control-group">
-                        <label for="default_category" class="required">Kategori</label>
-                        <select class="control" id="default_category" name="default_category">
-                            <option value>Select an category</option>
-                            @foreach($categories as $category)
-                                <option value="{{$category->id}}">{{$category->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="control-group">
-                        <label for="tags" class="required">Tags</label>
-                        <input type="text" class="control" name="tags">
-                    </div>
-                </div>
-
-                <div slot="body">
-                    <div class="control-group">
-                        <label for="short_description" class="required">Short Description</label>
-                        <input type="text" class="control" name="short_description">
-                    </div>
-
-                    <div class="control-group">
-                        <label for="description" class="required">Description</label>
-                        <input type="text" class="control" id="ckeditor" name="description">
+                    <div class="mt-3">
+                        <button type="button" onclick="createAndUpdateButton()" class="btn btn-success">Kaydet</button>
+                        <a href="{{ route('admin.blog.index') }}" class="btn btn-danger">İptal</a>
                     </div>
                 </div>
-
-                <div slot="body">
-                    <div class="control-group">
-                        <label class="required">Image</label>
-                        <input type="file" name="image" class="control"/>
-                    </div>
-                </div>
-
-                <div slot="body">
-                    <div class="control-group">
-                        <label for="meta_title" class="required">Meta Title</label>
-                        <input type="text" class="control" name="meta_title">
-                    </div>
-
-                    <div class="control-group">
-                        <label for="meta_keywords" class="required">Meta Keywords</label>
-                        <textarea class="control" name="meta_keywords"></textarea>
-                    </div>
-
-                    <div class="control-group">
-                        <label for="meta_description" class="required">Meta Description</label>
-                        <textarea class="control" name="meta_description"></textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
+            </form>
+        </section>
+    </div>
 
 @endsection
 

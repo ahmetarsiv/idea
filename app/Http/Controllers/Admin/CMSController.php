@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Constants\ResponseMessage;
 use App\Http\Controllers\Controller;
 use App\Models\CMS;
+use App\Models\Locale;
 use App\Services\CMSService;
 use Illuminate\Http\Request;
 
@@ -39,7 +40,9 @@ class CMSController extends Controller
      */
     public function create()
     {
-        return view('admin.cms.create');
+        $locales = Locale::select(['id', 'name'])->get();
+
+        return view('admin.cms.create', compact('locales'));
     }
 
     /**
@@ -65,7 +68,9 @@ class CMSController extends Controller
      */
     public function edit(CMS $cm)
     {
-        return view('admin.cms.edit', compact('cm'));
+        $locales = Locale::select(['id', 'name'])->get();
+
+        return view('admin.cms.edit', compact('cm', 'locales'));
     }
 
     /**

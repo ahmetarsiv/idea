@@ -2,78 +2,46 @@
 
 @section('content')
 
-    <div class="page-header">
-        <div class="page-title">
-            <h1>Blog</h1>
-        </div>
-        <div class="page-action">
-            <a href="{{ route('admin.blog.create') }}" class="btn btn-lg btn-primary">
-                Blog Ekle
-            </a>
-        </div>
-    </div>
-    <div class="table">
-        <div class="grid-container">
-            <div class="grid-top">
-                <div class="datagrid-filters">
-                    <div class="filter-left">
-                        <div></div>
-                    </div>
+    <div class="container-fluid">
+        <section class="content">
+            <figure>
+                <blockquote class="blockquote">
+                    <h2>Blog</h2>
+                </blockquote>
+            </figure>
+
+            <div class="row">
+                <div class="col-12 col-lg-12">
+                    <h4><a href="{{ route('admin.blog.create') }}" class="btn btn-success">Blog Ekle</a></h4>
                 </div>
-                <div id="datagrid-filters" class="datagrid-filters">
-                    <div>
-                        <div class="search-filter">
-                            <input type="search" id="search-field" placeholder="Search Here..." class="control">
-                            <div class="icon-wrapper"><span class="icon search-icon search-btn"></span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                    <tr style="height: 65px;">
-                        <th class="grid_head" style="width: 50px;" id="mastercheckbox">
-                            <span class="checkbox">
-                                <input type="checkbox" name="checkbox">
-                                <label for="checkbox" class="checkbox-view"></label>
-                            </span>
-                        </th>
-                        <th class="grid_head sortable">ID</th>
-                        <th class="grid_head sortable">Name</th>
-                        <th class="grid_head sortable">Status</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
+                <div class="col-12 col-lg-12 mt-3 overflow-auto">
+                    <table id="data-table" class="table table-striped" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th>Blog adı</th>
+                            <th>İşlemler</th>
+                        </tr>
+                        </thead>
+                        <tbody>
                         @foreach($blogs as $blog)
-                            <td>
-                                <span class="checkbox">
-                                    <input type="checkbox" name="checkbox">
-                                    <label for="checkbox" class="checkbox-view"></label>
-                                </span>
-                            </td>
-                            <td data-value="id">{{ $blog->id }}</td>
-                            <td data-value="id">{{ $blog->name }}</td>
-                            <td data-value="id" class="{{$company->status == 1 ? 'badge-success' : 'badge-danger'}}">{{$blog->status == 1 ? 'Aktif' : 'Pasif'}}</td>
-                            <td data-value="Actions" class="actions" style="white-space: nowrap; width: 100px;">
-                                <div class="action">
-                                    <a id="1" href="{{ route('admin.blog.edit',$blog->id) }}" target="" title="Edit">
-                                        <span class="icon pencil-lg-icon"></span>
+                            <tr>
+                                <td>{{ $blog->name }}</td>
+                                <td>
+                                    <a href="{{ route('admin.blog.edit',$blog->id) }}">
+                                        <i class="bi bi-pen text-dark"></i>
                                     </a>
                                     <button onclick="deleteButton(this,`${{route('admin.blog.destroy',$blog)}}`)">
-                                        <span class="icon trash-icon"></span>
+                                        <i class="bi bi-trash"></i>
                                     </button>
-                                </div>
-                            </td>
+                                </td>
+                            </tr>
                         @endforeach
-                        <!--<td colspan="10"><p style="text-align: center;">No Records Found</p></td>-->
-                    </tr>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+
+        </section>
     </div>
 
 @endsection

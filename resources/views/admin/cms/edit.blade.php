@@ -11,12 +11,19 @@
             </figure>
             <div class="row">
                 <div class="col-12 col-lg-12">
-                    <form class="form-control" name="form-data">
+                    <form name="form-data">
                         @csrf @method('PUT')
 
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" name="page_title" value="{{ $cm->page_title }}">
                             <label for="floatingFirst">Sayfa Başlığı</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" multiple name="locale" style="height: 150px">
+                                @foreach($locales as $locale)
+                                    <option value="{{$locale->id}}" {{$locale->id == $cm->locale ? 'selected' : null}}>{{$locale->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label class="mb-2">İçerik</label>

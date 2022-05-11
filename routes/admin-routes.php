@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CMSController;
+use App\Http\Controllers\Admin\ConfigurationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LocaleController;
 use App\Http\Controllers\Admin\SliderController;
@@ -73,4 +74,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'check.role'])->grou
      * Admin locale routes
      */
     Route::resource('locale', LocaleController::class);
+
+    /**
+     * Admin configuration routes
+     */
+    Route::resource('configuration', ConfigurationController::class);
 });

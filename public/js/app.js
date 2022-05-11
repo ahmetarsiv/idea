@@ -1,8 +1,1 @@
-document.querySelector('#nav-expand-button').addEventListener('click', () => {
-    document.querySelector('.navbar-left').classList.toggle('open'),
-        document.querySelector('.content-container').classList.toggle('padding-container-navbar-expand')
-});
-
-document.querySelector('.nav-toggle').addEventListener('click', () => {
-    document.querySelector('.nav-container').classList.toggle('is-active')
-});
+window.addEventListener("DOMContentLoaded",e=>{const t=document.body.querySelector("#sidebarToggle, #sidebarToggleM");t&&t.addEventListener("click",e=>{e.preventDefault(),document.body.classList.toggle("sb-sidenav-toggled"),localStorage.setItem("sb|sidebar-toggle",document.body.classList.contains("sb-sidenav-toggled"))});const o=document.body.querySelector("#sidebarToggleM");o&&o.addEventListener("click",e=>{e.preventDefault(),document.body.classList.toggle("sb-sidenav-toggled"),localStorage.setItem("sb|sidebar-toggle",document.body.classList.contains("sb-sidenav-toggled"))})});

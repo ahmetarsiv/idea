@@ -26,7 +26,7 @@ class HomeController extends Controller
     {
         $role = Auth::user()->role_id;
         switch($role) {
-            case 1: return redirect()->route('admin.cms.index');
+            case 1: return redirect()->route('admin.dashboard');
         }
     }
 

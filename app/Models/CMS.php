@@ -25,8 +25,17 @@ class CMS extends Model
         'url_key',
         'html_content',
         'page_title',
+        'locale',
         'meta_title',
         'meta_description',
         'meta_keywords',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function locale()
+    {
+        return $this->hasOne('App\Models\Locale', 'id', 'locale');
+    }
 }

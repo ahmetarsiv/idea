@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('url_key')->nullable();
             $table->longtext('html_content');
             $table->string('page_title');
+            $table->string('locale')->nullable();
             $table->string('meta_title');
             $table->text('meta_description')->nullable();
             $table->text('meta_keywords')->nullable();
