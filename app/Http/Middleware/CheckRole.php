@@ -37,7 +37,10 @@ class CheckRole
         return [
             'admin' => [
                 User::Admin
-            ]
+            ],
+            'manager' => [
+                User::Manager
+            ],
         ];
     }
 }

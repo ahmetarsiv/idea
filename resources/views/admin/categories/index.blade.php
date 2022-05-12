@@ -1,5 +1,7 @@
 @extends('admin.layouts.app')
 
+@extends('admin.layouts.stylesheet')
+
 @section('content')
 
     <div class="container-fluid">
@@ -30,7 +32,8 @@
                                     <a href="{{ route('admin.category.edit',$category->id) }}">
                                         <i class="bi bi-pen text-dark"></i>
                                     </a>
-                                    <button onclick="deleteButton(this,`${{route('admin.category.destroy',$category)}}`)">
+                                    <button
+                                        onclick="deleteButton(this,`${{route('admin.category.destroy',$category)}}`)">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                 </td>
@@ -56,13 +59,9 @@
 @endsection
 
 @section('js')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="{{asset('/plugins/toastr/toastr.min.js')}}"></script>
-    <script src="{{asset('/plugins/toastr/custom-toastr.js')}}"></script>
     <script>
         const backUrl = '{{route('admin.category.index')}}';
     </script>
-    <script src="{{asset('js/post.js')}}"></script>
+    @include('admin.layouts.extension.script')
     @include('layouts.script')
 @endsection

@@ -43,7 +43,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $locales = Locale::select(['id', 'name'])->get();
+        $locales = Locale::select(['code', 'name'])->get();
 
         return view('admin.categories.create', compact('locales'));
     }
@@ -71,7 +71,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        $locales = Locale::select(['id', 'name'])->get();
+        $locales = Locale::select(['code', 'name'])->get();
 
         return view('admin.categories.edit', compact('category', 'locales'));
     }

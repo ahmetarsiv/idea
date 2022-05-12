@@ -1,5 +1,7 @@
 @extends('admin.layouts.app')
 
+@extends('admin.layouts.stylesheet')
+
 @section('content')
 
     <div class="container-fluid">
@@ -10,7 +12,7 @@
                 </blockquote>
             </figure>
             <div class="row">
-                <div class="col-12 col-lg-12">
+                <div class="col-12 col-lg-6">
                     <form name="form-data" enctype="multipart/form-data">
                         @csrf @method('PUT')
 
@@ -27,7 +29,8 @@
                             <label class="input-group-text" for="inputGroupFile02">Görüntü</label>
                         </div>
                         <div class="mt-3">
-                            <button type="button" onclick="createAndUpdateButton()" class="btn btn-success">Kaydet</button>
+                            <button type="button" onclick="createAndUpdateButton()" class="btn btn-success">Kaydet
+                            </button>
                             <a href="{{ route('admin.locale.index') }}" class="btn btn-danger">İptal</a>
                         </div>
                     </form>
@@ -47,17 +50,13 @@
 @endsection
 
 @section('js')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="{{asset('/plugins/toastr/toastr.min.js')}}"></script>
-    <script src="{{asset('/plugins/toastr/custom-toastr.js')}}"></script>
     <script>
         const actionUrl = '{{route('admin.locale.update',$locale)}}';
         const backUrl = '{{route('admin.locale.index')}}';
     </script>
-    <script src="{{asset('js/post.js')}}"></script>
     <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
     <script>
         CKEDITOR.replace('ckeditor');
     </script>
+    @include('admin.layouts.extension.script')
 @endsection

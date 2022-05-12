@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('description');
             $table->string('image');
             $table->boolean('status');
-            $table->string('locale')->nullable();
+            $table->string('locale');
             $table->string('meta_title');
             $table->string('meta_description')->nullable();
             $table->string('meta_keywords')->nullable();

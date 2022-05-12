@@ -1,5 +1,7 @@
 @extends('admin.layouts.app')
 
+@extends('admin.layouts.stylesheet')
+
 @section('content')
 
     <div class="container-fluid">
@@ -31,7 +33,7 @@
                         <div class="form-floating mb-3">
                             <select class="form-select" multiple name="locale" style="height: 100px">
                                 @foreach($locales as $locale)
-                                    <option value="{{$locale->id}}">{{$locale->name}}</option>
+                                    <option value="{{$locale->code}}">{{$locale->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -52,7 +54,8 @@
                             <label class="input-group-text" for="inputGroupFile02">Görüntü</label>
                         </div>
                         <div class="form-check form-switch fs-3">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" value="0" name="status" checked>
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" value="0"
+                                   name="status" checked>
                         </div>
                     </div>
                     <div class="mt-3">
@@ -75,16 +78,13 @@
 @endsection
 
 @section('js')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="{{asset('/plugins/toastr/toastr.min.js')}}"></script>
-    <script src="{{asset('/plugins/toastr/custom-toastr.js')}}"></script>
     <script>
         const actionUrl = '{{route('admin.category.store')}}';
         const backUrl = '{{route('admin.category.index')}}';
     </script>
-    <script src="{{asset('js/post.js')}}"></script>
     <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
     <script>
         CKEDITOR.replace('ckeditor');
     </script>
+    @include('admin.layouts.extension.script')
 @endsection

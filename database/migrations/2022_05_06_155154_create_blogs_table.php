@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreignId('author');
             $table->string('tags');
             $table->string('image');
-            $table->string('locale')->nullable();
+            $table->string('locale');
             $table->boolean('status');
             $table->string('meta_title');
             $table->string('meta_description')->nullable();

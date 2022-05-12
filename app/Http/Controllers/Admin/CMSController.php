@@ -40,7 +40,7 @@ class CMSController extends Controller
      */
     public function create()
     {
-        $locales = Locale::select(['id', 'name'])->get();
+        $locales = Locale::select(['code', 'name'])->get();
 
         return view('admin.cms.create', compact('locales'));
     }
@@ -68,7 +68,7 @@ class CMSController extends Controller
      */
     public function edit(CMS $cm)
     {
-        $locales = Locale::select(['id', 'name'])->get();
+        $locales = Locale::select(['code', 'name'])->get();
 
         return view('admin.cms.edit', compact('cm', 'locales'));
     }

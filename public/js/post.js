@@ -1,1 +1,88 @@
-const btn=document.querySelector(".btn-success");function createAndUpdateButton(){btn.disabled=!0,btn.innerHTML="Kaydediliyor...";const t=document.forms.namedItem("form-data");t.ck_editor&&CKEDITOR.instances.ckeditor.updateElement();const e=new FormData(t);axios.post(actionUrl,e).then(t=>{!0===t.data.status?(toastr.success(t.data.message,t.data.title),btn.disabled=!1,btn.innerHTML="Kaydet",setTimeout(()=>{window.location.href=backUrl},3500)):(toastr.error(t.data.message,t.data.title),btn.disabled=!1,btn.innerHTML="Kaydet")}).catch(t=>{let e=t.response.data.errors;console.log(e);for(const[t,a]of Object.entries(e))toastr.error(a,"Başarısız");btn.disabled=!1,btn.innerHTML="Kaydet"})}const table=document.querySelector("#data-table");function deleteButton(t,e){const a=t.parentNode.parentNode.rowIndex;!0===confirm("Silmek istediğinize emin misiniz ?")&&axios.delete(e.replace("$",""),{_method:"DELETE"}).then(t=>{!0===t.data.status?(toastr.success(t.data.message,t.data.title),table.deleteRow(a)):toastr.error(t.data.message,t.data.title)})}function multipleDeleteButton(t){let e=[];document.querySelectorAll("input[name='_check']").forEach(t=>{!0===t.checked&&e.push(t.value)}),!0===confirm("Silmek istediğinize emin misiniz ?")&&axios.delete(t.replace("$",""),{data:{_token:__token,ids:e}}).then(t=>{!0===t.data.status?(toastr.success(t.data.message,t.data.title),setTimeout(()=>{location.reload()},3e3)):toastr.error(t.data.message,t.data.title)})}function modalCreateAndUpdateButton(t){const e=document.forms.namedItem("form-data"),a=new FormData(e);axios.post(t.replace("$",""),a).then(t=>{!0===t.data.status?toastr.success(t.data.message,t.data.title):toastr.error(t.data.message,t.data.title)})}
+const btn = document.querySelector(".btn-success");
+
+function createAndUpdateButton() {
+    btn.disabled = true;
+    btn.innerHTML = 'Kaydediliyor...';
+
+    const formData = document.forms.namedItem('form-data');
+    if (formData.ck_editor) {
+        CKEDITOR.instances['ckeditor'].updateElement();
+    }
+    const form = new FormData(formData);
+    axios.post(actionUrl, form).then(res => {
+        if (res.data.status === true) {
+            toastr.success(res.data.message, res.data.title);
+            btn.disabled = false;
+            btn.innerHTML = 'Kaydet';
+            setTimeout(() => {
+                window.location.href = backUrl;
+            }, 3500)
+        } else {
+            toastr.error(res.data.message, res.data.title);
+            btn.disabled = false;
+            btn.innerHTML = 'Kaydet';
+        }
+    }).catch(err => {
+        let error = err.response.data.errors;
+        console.log(error);
+        for (const [key, value] of Object.entries(error)) {
+            toastr.error(value, 'Başarısız');
+        }
+        btn.disabled = false;
+        btn.innerHTML = 'Kaydet';
+    })
+}
+
+function createAndUpdateCkButton() {
+    btn.disabled = true;
+    btn.innerHTML = 'Kaydediliyor...';
+
+    const formData = document.forms.namedItem('form-data');
+    if (formData.ck_editor) {
+        CKEDITOR.instances['ckeditor1'].updateElement();
+        CKEDITOR.instances['ckeditor2'].updateElement();
+        CKEDITOR.instances['ckeditor3'].updateElement();
+        CKEDITOR.instances['ckeditor4'].updateElement();
+    }
+    const form = new FormData(formData);
+    axios.post(actionUrl, form).then(res => {
+        if (res.data.status === true) {
+            toastr.success(res.data.message, res.data.title);
+            btn.disabled = false;
+            btn.innerHTML = 'Kaydet';
+            setTimeout(() => {
+                window.location.href = backUrl;
+            }, 3500)
+        } else {
+            toastr.error(res.data.message, res.data.title);
+            btn.disabled = false;
+            btn.innerHTML = 'Kaydet';
+        }
+    }).catch(err => {
+        let error = err.response.data.errors;
+        console.log(error);
+        for (const [key, value] of Object.entries(error)) {
+            toastr.error(value, 'Başarısız');
+        }
+        btn.disabled = false;
+        btn.innerHTML = 'Kaydet';
+    })
+}
+
+const table = document.querySelector('#data-table');
+
+function deleteButton(r, actionUrl) {
+    const list = r.parentNode.parentNode.rowIndex;
+    if (confirm('Silmek istediğinize emin misiniz ?') === true) {
+        axios.delete(actionUrl.replace('$', ''), {
+            _method: 'DELETE',
+        }).then(res => {
+            if (res.data.status === true) {
+                toastr.success(res.data.message, res.data.title);
+                table.deleteRow(list);
+            } else {
+                toastr.error(res.data.message, res.data.title);
+            }
+        })
+    }
+}

@@ -1,5 +1,7 @@
 @extends('admin.layouts.app')
 
+@extends('admin.layouts.stylesheet')
+
 @section('content')
 @endsection
 

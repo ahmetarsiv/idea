@@ -1,5 +1,5 @@
 @import url(https://cdn.jsdelivr.net/npm/vanilla-datatables@latest/dist/vanilla-dataTables.min.css);
-@import url(https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css);
+@import url(https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css);
 
 :root {
     --bs-blue: #0d6efd;
@@ -1278,7 +1278,7 @@ blockquote h2 {
     width: 200px;
     top: 55px;
     right: 0;
-    bottom: inherit!important;
+    bottom: inherit !important;
 }
 
 .dropdown-menu.show {
@@ -1667,6 +1667,19 @@ section .container .row .base:hover {
 
 body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
     margin-left: 0
+}
+
+@media only screen and (max-width: 600px) {
+    body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
+        position: fixed;
+        height: 100vh;
+        width: 100vh;
+        background-color: rgba(0, 0, 0, .8);
+        z-index: 9;
+        top: 0;
+        left: 0;
+        transition: all 0.18s linear;
+    }
 }
 
 @media (min-width: 768px) {

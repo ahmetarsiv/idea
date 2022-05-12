@@ -3,10 +3,12 @@
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CMSController;
-use App\Http\Controllers\Admin\ConfigurationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LocaleController;
+use App\Http\Controllers\Admin\MetaContentController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +53,23 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'check.role'])->grou
     Route::put('profile', [DashboardController::class, 'updateProfile'])->name('profile.update');
 
     /**
+     * Admin meta-data routes
+     */
+    Route::get('meta-data', [DashboardController::class, 'indexMetaData'])->name('meta-data.edit');
+    Route::put('meta-data', [DashboardController::class, 'updateMetaData'])->name('meta-data.update');
+
+    /**
+     * Admin configuration routes
+     */
+    Route::get('configuration', [DashboardController::class, 'indexConfiguration'])->name('configuration.edit');
+    Route::put('configuration', [DashboardController::class, 'updateConfiguration'])->name('configuration.update');
+
+    /**
+     * Admin user routes
+     */
+    Route::resource('user', UserController::class);
+
+    /**
      * Admin blog routes
      */
     Route::resource('blog', BlogController::class);
@@ -59,6 +78,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'check.role'])->grou
      * Admin blog category routes
      */
     Route::resource('category', CategoryController::class);
+
+    /**
+     * Admin product routes
+     */
+    Route::resource('product', ProductController::class);
 
     /**
      * Admin cms routes
@@ -76,7 +100,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'check.role'])->grou
     Route::resource('locale', LocaleController::class);
 
     /**
-     * Admin configuration routes
+     * Admin meta-content routes
      */
-    Route::resource('configuration', ConfigurationController::class);
+    Route::resource('meta-content', MetaContentController::class);
 });

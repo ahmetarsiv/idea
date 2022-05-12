@@ -40,7 +40,7 @@ class SliderController extends Controller
      */
     public function create()
     {
-        $locales = Locale::select(['id', 'name'])->get();
+        $locales = Locale::select(['code', 'name'])->get();
 
         return view('admin.sliders.create', compact('locales'));
     }
@@ -69,7 +69,7 @@ class SliderController extends Controller
      */
     public function edit(Slider $slider)
     {
-        $locales = Locale::select(['id', 'name'])->get();
+        $locales = Locale::select(['code', 'name'])->get();
 
         return view('admin.sliders.edit', compact( 'slider', 'locales'));
     }

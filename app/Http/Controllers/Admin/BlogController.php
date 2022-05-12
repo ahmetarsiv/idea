@@ -46,7 +46,7 @@ class BlogController extends Controller
 
         $users = User::select(['id', 'name'])->get();
 
-        $locales = Locale::select(['id', 'name'])->get();
+        $locales = Locale::select(['code', 'name'])->get();
 
         return view('admin.blogs.create', compact('categories', 'users', 'locales'));
     }
@@ -78,7 +78,7 @@ class BlogController extends Controller
 
         $users = User::select(['id', 'name'])->get();
 
-        $locales = Locale::select(['id', 'name'])->get();
+        $locales = Locale::select(['code', 'name'])->get();
 
         return view('admin.blogs.edit', compact('blog', 'categories', 'users', 'locales'));
     }
